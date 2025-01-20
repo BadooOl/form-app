@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire Massage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px auto;
+            line-height: 1.6;
+            background-color: #faf3e3;
+            color: #333;
+            max-width: 800px;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #8b4513;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #8b4513;
+            font-size: 1.5em;
+            border-bottom: 2px solid #8b4513;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .required {
+            color: red;
+            margin-left: 3px;
+        }
+        
+        input[type="text"], 
+        input[type="email"], 
+        input[type="number"], 
+        input[type="date"], 
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        .form-check {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-check input[type="radio"],
+        .form-check input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        
+        .range-group {
+            margin: 20px 0;
+        }
+        
+        .range-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .range-container label {
+            flex: 0 0 150px;
+        }
+        
+        .range-container input[type="range"] {
+            flex: 1;
+            margin: 0 15px;
+        }
+        
+        .range-container .percentage {
+            flex: 0 0 50px;
+            text-align: right;
+        }
+        
+        .remaining {
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        button {
+            background-color: #8b4513;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            display: block;
+            margin: 30px auto;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #a0522d;
+        }
+        
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        /* Rating stars styling */
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .rating input {
+            display: none;
+        }
+        
+        .rating label {
+            font-size: 2.5rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .rating:hover label:hover,
+        .rating:hover label:hover ~ label,
+        .rating input:checked ~ label {
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Formulaire Massage</h1>
+        <form id="massageForm" method="POST" action="/form">
+
+        <!-- Informations personnelles -->
+        <h2>Informations personnelles <span class="required">*</span></h2>
+        <div class="form-group">
+            <label for="prenom">Prénom <span class="required">*</span></label>
+            <input type="text" id="prenom" name="prenom" required>
+        </div>
+        <div class="form-group">
+            <label for="nom">Nom <span class="required">*</span></label>
+            <input type="text" id="nom" name="nom" required>
+        </div>
+        <div class="form-group">
+            <label for="dob">Date de naissance <span class="required">*</span></label>
+            <input type="date" id="dob" name="dob" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">N° de téléphone <span class="required">*</span></label>
+            <input type="text" id="phone" name="phone" required>
+        </div>
+
+        <!-- Opération chirurgicale -->
+        <h2>Avez-vous récemment subi une opération chirurgicale au visage ? Esthétique ou dermatologique ? <span class="required">*</span></h2>
+        <div class="form-check">
+            <input type="radio" id="operationOui" name="operation" value="oui" required>
+            <label for="operationOui">Oui</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" id="operationNon" name="operation" value="non">
+            <label for="operationNon">Non</label>
+        </div>
+        <div class="form-group">
+            <label for="operationDetails">Si oui, précisez :</label>
+            <textarea id="operationDetails" name="operationDetails"></textarea>
+        </div>
+
+        <!-- Antécédents médicaux -->
+        <h2>Avez-vous des antécédents médicaux ? (Cochez les cases correspondantes) <span class="required">*</span></h2>
+        <div class="form-check">
+            <input type="checkbox" id="cardiaque" name="antecedents" value="cardiaque">
+            <label for="cardiaque">Maladies cardiaques</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" id="circulatoires" name="antecedents" value="circulatoires">
+            <label for="circulatoires">Problèmes circulatoires (varices, phlébites, etc.)</label>
+        </div>
+        <!-- Ajout des autres options similaires -->
+        <div class="form-check">
+            <input type="checkbox" id="aucun" name="antecedents" value="aucun">
+            <label for="aucun">Aucun</label>
+        </div>
+
+        <!-- Allergies -->
+        <h2>Avez-vous des allergies (alimentaires, environnementales, cosmétiques) ? <span class="required">*</span></h2>
+        <div class="form-check">
+            <input type="radio" id="allergiesOui" name="allergies" value="oui" required>
+            <label for="allergiesOui">Oui</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" id="allergiesNon" name="allergies" value="non">
+            <label for="allergiesNon">Non</label>
+        </div>
+        <div class="form-group">
+            <label for="allergiesDetails">Si oui, précisez :</label>
+            <textarea id="allergiesDetails" name="allergiesDetails"></textarea>
+        </div>
+
+        <!-- Enceinte -->
+        <h2>Êtes-vous enceinte ? <span class="required">*</span></h2>
+        <div class="form-check">
+            <input type="radio" id="enceinteOui" name="enceinte" value="oui" required>
+            <label for="enceinteOui">Oui</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" id="enceinteNon" name="enceinte" value="non">
+            <label for="enceinteNon">Non</label>
+        </div>
+        <div class="form-group">
+            <label for="semainesGrossesse">Si oui, combien de semaines de grossesse ?</label>
+            <input type="number" id="semainesGrossesse" name="semainesGrossesse" min="0">
+        </div>
+
+        <!-- Notez votre sommeil -->
+        <h2>Notez la qualité de votre sommeil durant les 7 derniers jours</h2>
+        <div class="rating">
+            <input type="radio" id="star1" name="sommeil" value="1">
+            <label for="star1">★</label>
+            <input type="radio" id="star2" name="sommeil" value="2">
+            <label for="star2">★</label>
+            <input type="radio" id="star3" name="sommeil" value="3">
+            <label for="star3">★</label>
+            <input type="radio" id="star4" name="sommeil" value="4">
+            <label for="star4">★</label>
+            <input type="radio" id="star5" name="sommeil" value="5">
+            <label for="star5">★</label>
+        </div>
+
+        <!-- Choisissez votre massage -->
+        <h2>Je choisis mon massage</h2>
+        <div class="form-check">
+            <input type="radio" id="relaxantbutton" name="massage" value="relaxantbutton">
+            <label for="relaxantbutton">Relaxant</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" id="antiage" name="massage" value="antiage">
+            <label for="antiage">Anti-âge</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" id="surmesure" name="massage" value="surmesure">
+            <label for="surmesure">Sur mesure</label>
+        </div>
+
+        <!-- Sur mesure -->
+        <section id="surMesureSection" style="display: none;">
+                <h2>Je choisis l'option SUR MESURE</h2>
+                <div class="remaining">
+                    Reste à attribuer : <span id="remaining">100%</span>
+                </div>
+                
+                <div class="range-group">
+                    <div class="range-container">
+                        <label for="relaxant">Relaxant</label>
+                        <input type="range" id="relaxant" name="relaxant" min="0" max="100" value="0">
+                        <span class="percentage" id="relaxantValue">0%</span>
+                    </div>
+                    
+                    <div class="range-container">
+                        <label for="antiAge">Effet anti-âge</label>
+                        <input type="range" id="antiAge" name="antiAge" min="0" max="100" value="0">
+                        <span class="percentage" id="antiAgeValue">0%</span>
+                    </div>
+                    
+                    <div class="range-container">
+                        <label for="detente">Détente profonde</label>
+                        <input type="range" id="detente" name="detente" min="0" max="100" value="0">
+                        <span class="percentage" id="detenteValue">0%</span>
+                    </div>
+                </div>
+                
+                <p class="error" id="error-message" style="display: none;">
+                    La somme des pourcentages ne doit pas dépasser 100%.
+                </p>
+            </div>
+            <button type="submit">Générer le PDF</button>
+        </form>
+    </div>
+
+    <script>
+        // Improved JavaScript for percentage calculation
+        // Initialize all range inputs and their value displays
+        const rangeIds = ['relaxant', 'antiAge', 'detente'];
+        const ranges = {};
+        const values = {};
+        
+        rangeIds.forEach(id => {
+            ranges[id] = document.getElementById(id);
+            values[id] = document.getElementById(`${id}Value`);
+            if (ranges[id] && values[id]) {
+                // Set initial value to 0
+                ranges[id].value = 0;
+                values[id].textContent = '0%';
+            }
+        });
+        
+        const remaining = document.getElementById('remaining');
+        const errorMessage = document.getElementById('error-message');
+        
+        // Show Sur Mesure section only when that option is selected
+        document.querySelector('input[value="surmesure"]').addEventListener('change', function() {
+            document.getElementById('surMesureSection').style.display = this.checked ? 'block' : 'none';
+        });
+        
+        function updateRanges(changedInput) {
+            let total = 0;
+            const values = {};
+            
+            // Calculate total and store values
+            for (const [key, range] of Object.entries(ranges)) {
+                values[key] = parseInt(range.value) || 0;  // Use 0 if NaN
+                total += values[key];
+            }
+            
+            // If total exceeds 100%, adjust other values proportionally
+            if (total > 100) {
+                const excess = total - 100;
+                const othersTotal = total - values[changedInput];
+                
+                if (othersTotal > 0) {
+                    for (const [key, range] of Object.entries(ranges)) {
+                        if (key !== changedInput) {
+                            const reduction = (excess * values[key]) / othersTotal;
+                            range.value = Math.max(0, values[key] - reduction);
+                        }
+                    }
+                } else {
+                    ranges[changedInput].value = 100;
+                }
+            }
+            
+            updateDisplay();
+        }
+        
+        function updateDisplay() {
+            let total = 0;
+            
+            // Update individual value displays and calculate total
+            for (const [key, range] of Object.entries(ranges)) {
+                const value = parseInt(range.value) || 0;  // Use 0 if NaN
+                values[key].textContent = `${value}%`;
+                total += value;
+            }
+            
+            // Update remaining display
+            const remainingValue = 100 - total;
+            remaining.textContent = `${remainingValue}%`;
+            
+            // Show/hide error message
+            errorMessage.style.display = total > 100 ? 'block' : 'none';
+        }
+        
+        // Add event listeners to all range inputs
+        for (const [key, range] of Object.entries(ranges)) {
+            range.addEventListener('input', () => updateRanges(key));
+        }
+        
+        // Initial display update
+        updateDisplay();
+    </script>
+</body>
+</html>
